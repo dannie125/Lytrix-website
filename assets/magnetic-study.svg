@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="600" viewBox="0 0 640 600" fill="none">
+<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" stroke="#dce1dc" stroke-width=".65"/></pattern></defs>
+<rect width="640" height="600" fill="#eef0e9"/><rect width="640" height="600" fill="url(#grid)"/>
+<g stroke="#a3afa8" stroke-width="1"><path d="M40 48h560M40 552h560M40 40v16m560-16v16M40 544v16m560-16v16"/><path d="M320 80v408M72 290h496" stroke-dasharray="5 7"/></g>
+<g stroke="#28434a" stroke-linejoin="round">
+<path d="M120 263v73c0 78 89 137 200 137s200-59 200-137v-73c0 78-89 137-200 137s-200-59-200-137Z" fill="#bcc7be" stroke-width="2"/>
+<path d="M232 264v73c0-32 40-57 88-57s88 25 88 57v-73c0-32-40-57-88-57s-88 25-88 57Z" fill="#82978d" stroke-width="2"/>
+<path d="M520 263c0 76-89 137-200 137s-200-61-200-137 89-137 200-137 200 61 200 137Zm-112 0c0-31-39-56-88-56s-88 25-88 56 39 56 88 56 88-25 88-56Z" fill="#e4e8df" fill-rule="evenodd" stroke-width="2"/>
+<path d="M127 287c17 66 97 113 193 113s176-47 193-113M127 302c17 66 97 113 193 113s176-47 193-113M127 317c17 66 97 113 193 113s176-47 193-113M127 332c17 66 97 113 193 113s176-47 193-113M139 359c31 51 99 83 181 83s150-32 181-83" stroke="#647e70" stroke-width="1"/>
+</g>
+<g stroke="#a15b36" stroke-width="2"><path d="m427 169 31-61h102M178 366l-58 119H68M371 302l96 161h94"/><circle cx="427" cy="169" r="4" fill="#a15b36"/><circle cx="178" cy="366" r="4" fill="#a15b36"/><circle cx="371" cy="302" r="4" fill="#a15b36"/></g>
+<g fill="#3e5655" font-family="Arial,sans-serif" font-size="11" letter-spacing="1.5"><text x="40" y="30">MAGNETIC COMPONENT STUDY</text><text x="476" y="97">MATERIAL</text><text x="68" y="510">GEOMETRY</text><text x="468" y="487">APPLICATION</text><text x="40" y="578">TOROIDAL CORE / CONCEPTUAL VIEW</text><text x="542" y="578">01 — M</text></g>
+</svg>
