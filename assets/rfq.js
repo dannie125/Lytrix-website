@@ -6,9 +6,17 @@ if (form) {
   const fields = document.querySelector('#rfq-fields');
   const accessKey = form.elements.namedItem('access_key');
   const lineSelect = form.elements.namedItem('business-line');
+  const emiFields = document.querySelector('#emi-fields');
+  function updateEmiFields() {
+    const selected = lineSelect.value === 'EMI / EMC Filters';
+    emiFields.hidden = !selected;
+    emiFields.disabled = !selected;
+  }
   const line = new URLSearchParams(location.search).get('line');
   const initialLine = [...lineSelect.options].some(option => option.value === line) ? line : '';
   lineSelect.value = initialLine;
+  updateEmiFields();
+  lineSelect.addEventListener('change', updateEmiFields);
   const originalButton = button.innerHTML;
   const failureMessage = `Unable to submit your inquiry. Please try again or email ${config.email}.`;
   let submitting = false;
@@ -44,6 +52,8 @@ if (form) {
     // Collect before disabling the fieldset: disabled fields are excluded from FormData.
     const payload = Object.fromEntries(new FormData(form));
     payload.subject = `Website RFQ — ${payload.company.trim()} — ${payload['business-line']}`;
+    payload['Business Line'] = payload['business-line'];
+    delete payload['business-line'];
     payload.from_name = `${config.name} Website`;
     submitting = true;
     button.disabled = true;
@@ -65,6 +75,7 @@ if (form) {
       if (!response.ok || result.success !== true) throw new Error('Submission rejected');
       form.reset();
       lineSelect.value = initialLine;
+      updateEmiFields();
       showStatus('success', 'Thank you for contacting us. Your inquiry has been received by our submission system and will be reviewed by our sales team.', '✓ Inquiry Submitted');
     } catch {
       // Preserve all entries on rejection, timeout, malformed response or connection failure.
