@@ -7,16 +7,20 @@ if (form) {
   const accessKey = form.elements.namedItem('access_key');
   const lineSelect = form.elements.namedItem('business-line');
   const emiFields = document.querySelector('#emi-fields');
-  function updateEmiFields() {
+  const controllerFields = document.querySelector('#controller-fields');
+  function updateCategoryFields() {
     const selected = lineSelect.value === 'EMI / EMC Filters';
     emiFields.hidden = !selected;
     emiFields.disabled = !selected;
+    const controllerSelected = lineSelect.value === 'OEM / Custom Controller Solutions';
+    controllerFields.hidden = !controllerSelected;
+    controllerFields.disabled = !controllerSelected;
   }
   const line = new URLSearchParams(location.search).get('line');
   const initialLine = [...lineSelect.options].some(option => option.value === line) ? line : '';
   lineSelect.value = initialLine;
-  updateEmiFields();
-  lineSelect.addEventListener('change', updateEmiFields);
+  updateCategoryFields();
+  lineSelect.addEventListener('change', updateCategoryFields);
   const originalButton = button.innerHTML;
   const failureMessage = `Unable to submit your inquiry. Please try again or email ${config.email}.`;
   let submitting = false;
@@ -75,7 +79,7 @@ if (form) {
       if (!response.ok || result.success !== true) throw new Error('Submission rejected');
       form.reset();
       lineSelect.value = initialLine;
-      updateEmiFields();
+      updateCategoryFields();
       showStatus('success', 'Thank you for contacting us. Your inquiry has been received by our submission system and will be reviewed by our sales team.', '✓ Inquiry Submitted');
     } catch {
       // Preserve all entries on rejection, timeout, malformed response or connection failure.
