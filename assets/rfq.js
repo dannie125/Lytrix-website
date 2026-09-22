@@ -6,19 +6,22 @@ if (form) {
   const fields = document.querySelector('#rfq-fields');
   const accessKey = form.elements.namedItem('access_key');
   const lineSelect = form.elements.namedItem('business-line');
-  const emiFields = document.querySelector('#emi-fields');
-  const controllerFields = document.querySelector('#controller-fields');
+  const categoryFields = [...form.querySelectorAll('[data-business-lines]')];
   function updateCategoryFields() {
-    const selected = lineSelect.value === 'EMI / EMC Filters';
-    emiFields.hidden = !selected;
-    emiFields.disabled = !selected;
-    const controllerSelected = lineSelect.value === 'OEM / Custom Controller Solutions';
-    controllerFields.hidden = !controllerSelected;
-    controllerFields.disabled = !controllerSelected;
+    for (const group of categoryFields) {
+      const selected = JSON.parse(group.dataset.businessLines).includes(lineSelect.value);
+      group.hidden = !selected;
+      group.disabled = !selected;
+    }
   }
-  const line = new URLSearchParams(location.search).get('line');
+  const requestedLine = new URLSearchParams(location.search).get('line');
+  const line = requestedLine === 'BOM / Sourcing' ? 'BOM / Component Sourcing' : requestedLine;
   const initialLine = [...lineSelect.options].some(option => option.value === line) ? line : '';
   lineSelect.value = initialLine;
+  const application = form.elements.namedItem('application');
+  const requestedApplication = new URLSearchParams(location.search).get('application');
+  const initialApplication = [...document.querySelectorAll('#application-options option')].some(option => option.value === requestedApplication) ? requestedApplication : '';
+  application.value = initialApplication;
   updateCategoryFields();
   lineSelect.addEventListener('change', updateCategoryFields);
   const originalButton = button.innerHTML;
@@ -79,6 +82,7 @@ if (form) {
       if (!response.ok || result.success !== true) throw new Error('Submission rejected');
       form.reset();
       lineSelect.value = initialLine;
+      application.value = initialApplication;
       updateCategoryFields();
       showStatus('success', 'Thank you for contacting us. Your inquiry has been received by our submission system and will be reviewed by our sales team.', '✓ Inquiry Submitted');
     } catch {
